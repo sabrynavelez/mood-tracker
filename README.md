@@ -8,8 +8,8 @@ A simple React app to track your mood each day. Built with React and Bootstrap.
 - View past mood entries
 - Clean and responsive design
 
-## Demo
-Coming soon!
+## Demo - Deployed using FireBase
+https://mood-tracker-2025.web.app
 
 ---
 
