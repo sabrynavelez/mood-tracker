@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import MoodForm from './MoodForm';
+import MoodList from './MoodList';
 
 function App() {
+  const [entries, setEntries] = useState(() => {
+    const saved = localStorage.getItem('moodEntries');
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('moodEntries', JSON.stringify(entries));
+  }, [entries]);
+
+  const handleAddEntry = (newEntry) => {
+    setEntries([newEntry, ...entries]);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container py-5">
+      <div className="text-center mb-4">
+        <h1 className="display-5">🌈 Daily Mood Tracker</h1>
+        <p className="text-muted">Track how you're feeling every day</p>
+      </div>
+      <div className="card shadow-sm p-4 mb-4">
+        <MoodForm onAdd={handleAddEntry} />
+      </div>
+      <MoodList entries={entries} />
     </div>
   );
 }
